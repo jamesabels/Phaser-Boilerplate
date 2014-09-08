@@ -4,3 +4,5 @@
 /CONTRIBUTING.md
 /CHANGELOG.md
 /bower_components/phaser/
+/.sass-cache/
+.sass-cache
