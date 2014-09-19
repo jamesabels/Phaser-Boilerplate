@@ -39,7 +39,7 @@ var jsMinDest = 'library/js/min';
 var jsConcatSrc =  'library/js/{!(min)/*.js,*.js}';
 var jsConcatDest = 'scripts.min.js';
 // JS HINT PATHS
-var jsHintPath = 'library/js/*.js}'
+var jsHintPath = 'library/js/*.js'
 
 
 // ==========================================================================//
