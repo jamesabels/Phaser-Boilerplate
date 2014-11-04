@@ -33,7 +33,7 @@ var jsWatch = 'library/js/{!(min)/*.js,*.js}';
 // GENERAL PATH
 var jsPath = 'library/js';
 // MINIFY PATHS
-var jsMinSrc = 'library/js/min/scripts.min.js';
+var jsMinSrc = 'library/js/min/ game.min.js';
 var jsMinDest = 'library/js/min';
 // CONCAT PATHS
 var jsConcatSrc =  'library/js/{!(min)/*.js,*.js}';
@@ -106,13 +106,20 @@ gulp.task('js-lint', function() {
         .pipe(jshint.reporter('jshint-stylish'))
 });
 
-//CONCAT & MINIFY
+//CONCAT
 gulp.task('js-process', function() {
     gulp.src(jsConcatSrc)
         .pipe(plumber())
         .pipe(concat(jsConcatDest))
-        .pipe(uglify())
         .pipe(gulp.dest(jsMinDest))
+});
+
+// MINIFY
+gulp.task('js-min', function() {
+  gulp.src(jsConcatDest)
+    .pipe(plumber())
+    .pipe(uglify())
+    .pipe(dest(jsMinDest))
 });
 
 // ==========================================================================//

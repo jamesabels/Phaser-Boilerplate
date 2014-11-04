@@ -11,10 +11,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        
+
         <link rel="stylesheet" href="library/css/style.css">
-        <script src="library/js/vendor/modernizr-2.6.2.min.js"></script>
-        <script src="library/js/vendor/phaser.min.js"></script>
+        <script src="library/src/modernizr-2.6.2.min.js"></script>
+        <script src="library/src/phaser.min.js"></script>
         <script src="library/js/min/scripts.min.js"></script>
     </head>
     <body>
@@ -24,9 +24,21 @@
 
         <!-- Add your site or application content here -->
 
+  <script type="text/javascript">
+    window.onload = function() {
+      var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-stage');
+
+      game.state.add('Boot', PhaserBp.Boot);
+      game.state.add('Preload', PhaserBp.Preload);
+      game.state.add('Game', PhaserBp.Game);
+
+      game.state.start('Boot');
+    }
+  </script>
+
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="library/js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+        <script>window.jQuery || document.write('<script src="library/src/jquery-1.10.2.min.js"><\/script>')</script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
