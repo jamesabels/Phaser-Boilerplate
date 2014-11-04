@@ -1,15 +1,13 @@
 // Import Compass
-@import 'compass'; 
+@import 'compass';
 
 
-// Import Partials 
-@import'_normalize'; 
+// Import Partials
+@import'_normalize';
 
 
 // Page Styles
 body {
-  width: 800px;
+  width: 100%;
   background-color: #333;
-  margin: 0 auto;
-  margin-top: 7%;
 }

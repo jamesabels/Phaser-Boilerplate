@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="library/css/style.css">
         <script src="library/src/modernizr-2.6.2.min.js"></script>
         <script src="library/src/phaser.min.js"></script>
+        <script src="library/js/main.js"></script>
         <script src="library/js/min/scripts.min.js"></script>
     </head>
     <body>
@@ -23,18 +24,6 @@
         <![endif]-->
 
         <!-- Add your site or application content here -->
-
-  <script type="text/javascript">
-    window.onload = function() {
-      var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-stage');
-
-      game.state.add('Boot', PhaserBp.Boot);
-      game.state.add('Preload', PhaserBp.Preload);
-      game.state.add('Game', PhaserBp.Game);
-
-      game.state.start('Boot');
-    }
-  </script>
 
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
