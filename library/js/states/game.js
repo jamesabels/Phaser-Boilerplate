@@ -1,5 +1,7 @@
 // Game State
-PhaserBp.Game = function(game) {};
+PhaserBp.Game = function(game) {
+  console.log("Game State Initiated");
+};
 
 PhaserBp.Game.prototype = {
 
