@@ -33,11 +33,11 @@ var jsWatch = 'library/js/{!(min)/*.js,*.js}';
 // GENERAL PATH
 var jsPath = 'library/js';
 // MINIFY PATHS
-var jsMinSrc = 'library/js/min/scripts.min.js';
+var jsMinSrc = 'library/js/min/game.min.js';
 var jsMinDest = 'library/js/min';
 // CONCAT PATHS
 var jsConcatSrc =  'library/js/{!(min)/*.js,*.js}';
-var jsConcatDest = 'scripts.min.js';
+var jsConcatDest = 'game.min.js';
 // JS HINT PATHS
 var jsHintPath = 'library/js/*.js'
 
@@ -106,13 +106,20 @@ gulp.task('js-lint', function() {
         .pipe(jshint.reporter('jshint-stylish'))
 });
 
-//CONCAT & MINIFY
+//CONCAT
 gulp.task('js-process', function() {
     gulp.src(jsConcatSrc)
         .pipe(plumber())
         .pipe(concat(jsConcatDest))
-        .pipe(uglify())
         .pipe(gulp.dest(jsMinDest))
+});
+
+// MINIFY
+gulp.task('js-min', function() {
+  gulp.src(jsMinSrc)
+    .pipe(plumber())
+    .pipe(uglify())
+    .pipe(gulp.dest(jsMinDest))
 });
 
 // ==========================================================================//
@@ -170,7 +177,7 @@ gulp.task('connect', function() {
 //    4.0 --- CUSTOM TASKS                                                   //
 //========================================================================== //
 
-gulp.task('default', ['sass', 'js-lint', 'js-process', 'img', 'watch'] );
+gulp.task('default', ['sass', 'js-lint', 'js-process', 'watch'] );
 gulp.task('js-debug', ['js-lint'] );
-gulp.task('serve', ['connect', 'sass', 'js-lint', 'js-process', 'img', 'watch'] );
-gulp.task('production', ['sass', 'js-process', 'img']);
+gulp.task('serve', ['connect', 'sass', 'js-lint', 'js-process', 'watch'] );
+gulp.task('optimized', ['sass', 'js-process', 'js-min', 'img']);

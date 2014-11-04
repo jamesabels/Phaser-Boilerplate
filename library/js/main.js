@@ -1,14 +1,9 @@
-var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-stage', { preload: preload, create: create, update: update });
+window.onload = function() {
+  var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-stage');
 
-function preload() {
-    game.load.image('renderTest', 'library/assets/mario.png');
+  game.state.add('Boot', PhaserBp.Boot);
+  game.state.add('Preload', PhaserBp.Preload);
+  game.state.add('Game', PhaserBp.Game);
 
-}
-
-function create() {
-    game.add.sprite(400 - 32, 300 - 32, 'renderTest');
-}
-
-function update() {
-    
-}
+  game.state.start('Boot');
+};
