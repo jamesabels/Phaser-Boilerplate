@@ -1,3 +1,4 @@
+//Boot State
 var PhaserBp = {};
 
 PhaserBp.Boot = function(game) {};

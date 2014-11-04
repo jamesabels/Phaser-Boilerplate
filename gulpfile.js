@@ -111,6 +111,7 @@ gulp.task('js-process', function() {
     gulp.src(jsConcatSrc)
         .pipe(plumber())
         .pipe(concat(jsConcatDest))
+        //.pipe(uglify()
         .pipe(gulp.dest(jsMinDest))
 });
 
