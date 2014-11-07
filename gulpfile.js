@@ -170,6 +170,6 @@ gulp.task('connect', function() {
 //========================================================================== //
 
 gulp.task('default', ['sass', 'js-lint', 'js-process', 'watch'] );
-gulp.task('js-debug', ['js-lint'] );
+gulp.task('debug', ['js-lint'] );
 gulp.task('serve', ['connect', 'sass', 'js-lint', 'js-process', 'watch'] );
-gulp.task('optimized', ['sass', 'js-process', 'js-min', 'img']);
+gulp.task('production', ['sass', 'js-process', 'js-min', 'img']);
