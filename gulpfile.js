@@ -68,8 +68,8 @@ var phpSrc = '**/*.php';
 //    1.5 --- IMAGE PATHS                                                    //
 //========================================================================== //
 
-var imgAll = 'library/assets/*';
-var imgPath = 'library/assets';
+var imgAll = 'library/assets/images/*';
+var imgPath = 'library/assets/images';
 
 // ==========================================================================//
 //    1.6 --- PLUGIN SETTINGS                                                //

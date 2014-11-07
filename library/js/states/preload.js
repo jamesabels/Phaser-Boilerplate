@@ -6,7 +6,7 @@ PhaserBp.Preload = function(game) {
 PhaserBp.Preload.prototype = {
 
 	preload: function () {
-    this.load.image('renderTest', 'library/images/mario.png');
+    this.load.image('renderTest', 'library/assets/images/mario.png');
 	},
 
 	create: function () {
