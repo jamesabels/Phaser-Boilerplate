@@ -24,9 +24,9 @@ For more information and help with Compass please [visit.](http://compass-style.
 
 **gulp** - This default task will build a development version of your project. 
 
-**gulp optimized** - This task will build a production version of your project. 
+**gulp production** - This task will build a production version of your project. 
 
-**gulp js-debug** - This task will help debug your project. 
+**gulp debug** - This task will help debug your project. 
 
 **gulp serve** - This task will build and host a development version of your project. 
 
