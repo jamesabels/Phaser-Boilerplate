@@ -1,8 +1,7 @@
 // ==========================================================================//
-//    1 --- IMPORTS AND VARIABLES                                            //
+//    1 --- IMPORTS                                                          //
 //========================================================================== //
 
-// PLUGIN CALLS
 var gulp = require('gulp');
 var uglify = require('gulp-uglify');
 var compass = require('gulp-compass');
@@ -157,6 +156,7 @@ gulp.task('reload', function(){
         .pipe(changed('./library/js/**', {extension: '.js'} ))
         .pipe(livereload())
 });
+
 // ==========================================================================//
 //    3.0 --- CONNECT SERVER                                                 //
 //========================================================================== //
