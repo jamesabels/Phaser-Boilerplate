@@ -16,7 +16,7 @@ PhaserBp.Boot.prototype = {
 		this.scale.pageAlignVertically = true;
 		this.stage.forcePortrait = false;
 		this.input.addPointer();
-		this.stage.backgroundColor = '#111111';
+		this.stage.backgroundColor = '#999999';
 
     this.state.start('Preload');
     }

@@ -57,11 +57,11 @@ var configPath = 'library/scss/config.rb';
 
 
 // ==========================================================================//
-//    1.4 --- HTML AND PHP PATHS                                             //
+//    1.4 --- HTML AND JS PATHS                                              //
 //========================================================================== //
 
 var htmlSrc = '**/*.html';
-var phpSrc = '**/*.php';
+var jsSrc = '**/*.js';
 
 
 // ==========================================================================//
@@ -91,7 +91,7 @@ gulp.task('watch', function(){
     gulp.watch(jsWatch, [ 'js-lint', 'js-process']);
     gulp.watch(sassWatch, ['sass']);
     gulp.watch(htmlSrc, ['html-reload']);
-    gulp.watch(phpSrc, ['php-reload']);
+    gulp.watch(jsSrc, ['js-reload']);
     gulp.watch(imgPath, ['img']);
 });
 
@@ -149,7 +149,7 @@ gulp.task('img', function(){
 });
 
 // ==========================================================================//
-//    2.5 --- HTML AND PHP RELOAD                                            //
+//    2.5 --- HTML AND JS RELOAD                                             //
 //========================================================================== //
 
 gulp.task('html-reload', function(){
@@ -158,9 +158,9 @@ gulp.task('html-reload', function(){
         .pipe(livereload())
 });
 
-gulp.task('php-reload', function(){
-    return gulp.src(phpSrc)
-        .pipe(changed(phpSrc))
+gulp.task('js-reload', function(){
+    return gulp.src(jsSrc)
+        .pipe(changed(jsSrc))
         .pipe(livereload())
 });
 
