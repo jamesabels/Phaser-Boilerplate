@@ -61,7 +61,7 @@ var configPath = 'library/scss/config.rb';
 //========================================================================== //
 
 var htmlSrc = '**/*.html';
-var jsSrc = '**/*.js';
+var jsSrc = 'library/js/{!(min)/*.js,*.js}';
 
 
 // ==========================================================================//
@@ -88,10 +88,9 @@ var compassSettings = {
 
 //WATCH
 gulp.task('watch', function(){
-    gulp.watch(jsWatch, [ 'js-lint', 'js-process']);
+    gulp.watch(jsWatch, [ 'js-lint', 'js-process', 'reload']);
     gulp.watch(sassWatch, ['sass']);
-    gulp.watch(htmlSrc, ['html-reload']);
-    gulp.watch(jsSrc, ['js-reload']);
+    gulp.watch(htmlSrc, ['reload']);
     gulp.watch(imgPath, ['img']);
 });
 
@@ -152,19 +151,12 @@ gulp.task('img', function(){
 //    2.5 --- HTML AND JS RELOAD                                             //
 //========================================================================== //
 
-gulp.task('html-reload', function(){
-    return gulp.src(htmlSrc)
-        .pipe(changed(htmlSrc))
+gulp.task('reload', function(){
+    return gulp.src('./')
+        .pipe(changed('./', {extension: '.html'} ))
+        .pipe(changed('./library/js/**', {extension: '.js'} ))
         .pipe(livereload())
 });
-
-gulp.task('js-reload', function(){
-    return gulp.src(jsSrc)
-        .pipe(changed(jsSrc))
-        .pipe(livereload())
-});
-
-
 // ==========================================================================//
 //    3.0 --- CONNECT SERVER                                                 //
 //========================================================================== //
