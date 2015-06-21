@@ -42,3 +42,4 @@ For more information and help with Compass please [visit.](http://compass-style.
 
 ### Version 1.0.1
 - Updated Phaser to v2.3.0 "Tarabon" 
+- Removed margin top from style sheet
