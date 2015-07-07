@@ -13,7 +13,7 @@ You will need gulp to run a number of tasks that will build your game for you, a
 
 For help with Gulp installation and basic usage please [visit.](https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md)
 
-### Sass & Compass
+### Sass
 Phaser Boilerplate also uses sass, a css pre-processor.
 
 For more information and help with Sass please [visit.](http://sass-lang.com/)
@@ -45,4 +45,4 @@ For more information and help with Compass please [visit.](http://compass-style.
 - Removed Gulp Compass
 - Gulp file now uses node sass
 - Added partials structure to sass files
-- Phaser Boilerplate now uses Browser Sync, so that all your devices will reload when changes are saved. 
+- Phaser Boilerplate now uses Browser Sync, so that all your devices will reload when changes are saved.
