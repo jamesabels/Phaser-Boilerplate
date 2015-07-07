@@ -1,175 +1,86 @@
-// ==========================================================================//
-//    1 --- IMPORTS                                                          //
-//========================================================================== //
-
-var gulp = require('gulp');
-var uglify = require('gulp-uglify');
-var compass = require('gulp-compass');
-var plumber = require('gulp-plumber');
-var concat = require('gulp-concat');
-var livereload = require('gulp-livereload');
-var stylish = require('jshint-stylish');
-var jshint = require('gulp-jshint');
-var connect = require('gulp-connect');
-var changed = require('gulp-changed');
-var prefix = require('gulp-autoprefixer');
+// Plugin Calls
+var browserSync = require('browser-sync').create();
+var autoprefixer = require('gulp-autoprefixer');
 var imagemin = require('gulp-imagemin');
+var stylish = require('jshint-stylish');
+var vinylPaths = require('vinyl-paths');
+var plumber = require('gulp-plumber');
+var jshint = require('gulp-jshint');
+var concat = require('gulp-concat');
+var uglify = require('gulp-uglify');
+var sass = require('gulp-sass');
+var gulp = require('gulp');
+var del = require('del');
 
-
-// ==========================================================================//
-//    1.1 --- GENERAL FILE PATHS                                             //
-//========================================================================== //
-
-var libs = 'library';
-
-
-// ==========================================================================//
-//    1.2 --- JAVASCRIPT PATHS                                               //
-//========================================================================== //
-
-// WATCH PATH
-var jsWatch = 'library/js/{!(min)/*.js,*.js}';
-// GENERAL PATH
-var jsPath = 'library/js';
-// MINIFY PATHS
-var jsMinSrc = 'library/js/min/game.min.js';
-var jsMinDest = 'library/js/min';
-// CONCAT PATHS
-var jsConcatSrc =  'library/js/{!(min)/*.js,*.js}';
-var jsConcatDest = 'game.min.js';
-// JS HINT PATHS
-var jsHintPath = 'library/js/*.js'
-
-
-// ==========================================================================//
-//    1.3 --- SASS/CSS PATHS                                                 //
-//========================================================================== //
-
-// WATCH PATH
-var sassWatch = 'library/scss/**/*.scss';
-//SASS PATH
-var sassPath = 'library/scss';
-// CSS PATH
-var cssPath = 'library/css';
-// CONFIG.RB PATH
-var configPath = 'library/scss/config.rb';
-
-
-// ==========================================================================//
-//    1.4 --- HTML AND JS PATHS                                              //
-//========================================================================== //
-
-var htmlSrc = '**/*.html';
-var jsSrc = 'library/js/{!(min)/*.js,*.js}';
-
-
-// ==========================================================================//
-//    1.5 --- IMAGE PATHS                                                    //
-//========================================================================== //
-
-var imgAll = 'library/assets/images/*';
-var imgPath = 'library/assets/images';
-
-// ==========================================================================//
-//    1.6 --- PLUGIN SETTINGS                                                //
-//========================================================================== //
-
-//PLUGIN SETTINGS
-var compassSettings = {
-    config_file: configPath,
-    css: cssPath,
-    sass: sassPath,
-}
-
-// ==========================================================================//
-//    2.0 --- TASKS                                                          //
-//========================================================================== //
-
-//WATCH
-gulp.task('watch', function(){
-    gulp.watch(jsWatch, [ 'js-lint', 'js-process', 'reload']);
-    gulp.watch(sassWatch, ['sass']);
-    gulp.watch(htmlSrc, ['reload']);
-    gulp.watch(imgPath, ['img']);
+// TASKS
+// Complie Styles
+gulp.task('styles', function() {
+  gulp.src('library/scss/*.scss')
+    .pipe(plumber())
+    .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+    .pipe(autoprefixer({browsers: ['last 5 versions'], cascade: false}))
+    .pipe(gulp.dest('library/css'))
+    .pipe(browserSync.stream());
 });
 
-// ==========================================================================//
-//    2.1 --- JAVASCRIPT                                                     //
-//========================================================================== //
-
-//LINT JS
-gulp.task('js-lint', function() {
-    gulp.src(jsHintPath)
-        .pipe(jshint())
-        .pipe(jshint.reporter('jshint-stylish'))
+// Prefix CSS
+gulp.task('prefix-css', function() {
+  gulp.src('library/css/*.css')
+    .pipe(plumber())
+    .pipe(autoprefixer({browsers: ['> 5% in US', 'last 2 versions'], cascade: false}))
+    .pipe(gulp.dest('library/css'))
+    .pipe(browserSync.stream());
 });
 
-//CONCAT
-gulp.task('js-process', function() {
-    gulp.src(jsConcatSrc)
-        .pipe(plumber())
-        .pipe(concat(jsConcatDest))
-        .pipe(gulp.dest(jsMinDest))
+// Hint JS
+gulp.task('hint', function() {
+  return gulp.src('library/js/*.js')
+    .pipe(plumber())
+    .pipe(jshint())
+    .pipe(jshint.reporter('jshint-stylish'));
 });
 
-// MINIFY
-gulp.task('js-min', function() {
-  gulp.src(jsMinSrc)
+// Concat JS
+gulp.task('concat', function() {
+  return gulp.src(['library/**/*.js', '!library/js/**/*.min.js'])
     .pipe(plumber())
     .pipe(uglify())
-    .pipe(gulp.dest(jsMinDest))
+    .pipe(concat('game.min.js'))
+    .pipe(gulp.dest('library/js/min'))
+    .pipe(browserSync.stream());
 });
 
-// ==========================================================================//
-//    2.2 --- SASS                                                           //
-//========================================================================== //
-
-//COMPILE SASS
-gulp.task('sass', function() {
-    gulp.src(sassWatch)
+// Optimize Images
+gulp.task('image-min', function () {
+    return gulp.src(['library/assets/images/*.jpg','library/assets/images/*.jpeg', 'library/assets/images/*.png', 'library/assets/images/*.svg', 'library/assets/images/*.gif'])
         .pipe(plumber())
-        .pipe(changed(sassWatch))
-        .pipe(prefix("last 2 versions", "> 1%"))
-        .pipe(compass(compassSettings))
-        .pipe(gulp.dest(cssPath))
-        .pipe(livereload())
+        .pipe(imagemin({
+            progressive: true,
+            svgoPlugins: [{removeViewBox: false}]
+        }))
+        .pipe(gulp.dest('library/assets/images/min'));
 });
 
-// ==========================================================================//
-//    2.4 --- IMAGE TASKS                                                    //
-//========================================================================== //
-gulp.task('img', function(){
-    return gulp.src(imgAll)
-        .pipe(plumber())
-        .pipe(changed(imgAll))
-        .pipe(imagemin())
-        .pipe(gulp.dest(imgPath))
+// Delete Original Images
+gulp.task('image-clean', function () {
+    return gulp.src(['library/assets/images/*.jpg','library/assets/images/*.jpeg', 'library/assets/images/*.png', 'library/assets/images/*.svg', 'library/assets/images/*.gif'])
+      .pipe(plumber())
+      .pipe(vinylPaths(del));
 });
 
-// ==========================================================================//
-//    2.5 --- HTML AND JS RELOAD                                             //
-//========================================================================== //
-
-gulp.task('reload', function(){
-    return gulp.src('./')
-        .pipe(changed('./', {extension: '.html'} ))
-        .pipe(changed('./library/js/**', {extension: '.js'} ))
-        .pipe(livereload())
+// BUILD TASKS
+// BrowserSync
+gulp.task('watch', ['styles', 'prefix-css', 'hint', 'concat', 'image-min', 'image-clean'], function() {
+    browserSync.init({
+        server: {
+            baseDir: "./"
+        }
+    });
+    gulp.watch('library/scss/*.scss', ['styles', 'prefix-css']);
+    gulp.watch('library/css/*.css', ['prefix-css']);
+    gulp.watch('*.html').on('change', browserSync.reload);
+    gulp.watch().on('change', browserSync.reload);
+    gulp.watch('library/js/*.js', ['hint']);
+    gulp.watch(['library/**/*.js', '!library/js/**/*.min.js'], ['concat']);
+    gulp.watch(['library/assets/images/*.jpg','library/assets/images/*.jpeg', 'library/assets/images/*.png', 'library/assets/images/*.svg', 'library/assets/images/*.gif'] , ['image-min', 'image-clean']);
 });
-
-// ==========================================================================//
-//    3.0 --- CONNECT SERVER                                                 //
-//========================================================================== //
-
-gulp.task('connect', function() {
-  connect.server();
-});
-
-// ==========================================================================//
-//    4.0 --- CUSTOM TASKS                                                   //
-//========================================================================== //
-
-gulp.task('default', ['sass', 'js-lint', 'js-process', 'watch'] );
-gulp.task('debug', ['js-lint'] );
-gulp.task('serve', ['connect', 'sass', 'js-lint', 'js-process', 'watch'] );
-gulp.task('production', ['sass', 'js-process', 'js-min', 'img']);
