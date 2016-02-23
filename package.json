@@ -1,24 +1,59 @@
 {
-  "name": "phaser-boilerplate",
-  "description": "A catch-all Gulp setup for most projects.",
-  "main": "gulpfile.js",
-  "devDependencies": {
-    "browser-sync": "^2.7.13",
-    "del": "^1.2.0",
-    "gulp": "^3.9.0",
-    "gulp-autoprefixer": "^2.3.1",
-    "gulp-concat": "^2.6.0",
-    "gulp-imagemin": "^2.3.0",
-    "gulp-jshint": "^1.11.2",
-    "gulp-plumber": "^1.0.1",
-    "gulp-sass": "^2.0.3",
-    "gulp-uglify": "^1.2.0",
-    "jshint-stylish": "^2.0.1",
-    "vinyl-paths": "^1.0.0"
+  "name": "electron-boilerplate",
+  "productName": "ElectronBoilerplate",
+  "version": "0.0.0",
+  "description": "My riveting app",
+  "license": "MIT",
+  "repository": "theperducogroup/electron-boilerplate",
+  "author": {
+    "name": "James Abels",
+    "email": "jamesrabels@gmail.com",
+    "url": "theperducogroup.com"
   },
+  "electronVersion": "0.36.0",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "xo",
+    "start": "electron ./public",
+    "build": "electron-packager . $npm_package_productName --out=dist --ignore='^/dist$' --prune --asar --all --version=$npm_package_electronVersion",
+    "watch": "brunch watch --server",
+    "production": "brunch build --production"
   },
-  "author": "James Abels",
-  "license": "MIT"
+  "files": [
+    "index.js",
+    "index.html",
+    "index.css"
+  ],
+  "keywords": [
+    "electron-app",
+    "electron"
+  ],
+  "dependencies": {
+    "electron-debug": "^0.5.0",
+    "postcss-brunch": "^0.5.0"
+  },
+  "devDependencies": {
+    "auto-reload-brunch": "^2.0.0",
+    "autoprefixer": "^6.3.3",
+    "babel-brunch": "^6.0.0",
+    "babel-preset-es2015": "^6.5.0",
+    "breakpoint-sass": "^2.7.0",
+    "clean-css-brunch": "^2.0.0",
+    "css-brunch": "^2.0.0",
+    "electron-packager": "^5.0.0",
+    "electron-prebuilt": "^0.36.0",
+    "javascript-brunch": "^2.0.0",
+    "modularscale-sass": "^2.1.1",
+    "postcss-brunch": "^0.5.0",
+    "sass-brunch": "^2.0.0",
+    "susy": "^2.2.12",
+    "uglify-js-brunch": "^2.0.0",
+    "xo": "^0.12.0"
+  },
+  "xo": {
+    "esnext": true,
+    "envs": [
+      "node",
+      "browser"
+    ]
+  }
 }

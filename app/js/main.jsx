@@ -6,4 +6,4 @@ window.onload = function() {
   game.state.add('Game', PhaserBp.Game);
 
   game.state.start('Boot');
-};
+}; 
