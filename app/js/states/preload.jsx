@@ -6,7 +6,7 @@ PhaserBp.Preload = function(game) {
 PhaserBp.Preload.prototype = {
 
 	preload: function () {
-    this.load.image('renderTest', 'library/assets/images/min/megaman.png');
+        this.load.image('renderTest', 'images/megaman.png');
 	},
 
 	create: function () {
@@ -14,6 +14,6 @@ PhaserBp.Preload.prototype = {
 	},
 
 	update: function () {
-    this.state.start('Game');
+        this.state.start('Game');
 	}
 };
