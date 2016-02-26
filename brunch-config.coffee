@@ -2,7 +2,11 @@ exports.config =
 # See http://brunch.io/#documentation for docs.
   files:
     javascripts:
-      joinTo: 'app.js'
+      joinTo: {
+        'js/app.js': /app[\\/]vendor[\\/]/,
+        'js/vendor.js': /app[\\/]vendor[\\/]libs[\\/]/,
+        'js/modules.js': /app[\\/]modules[\\/]/,
+      },
     stylesheets:
       joinTo: 'app.css'
     templates:
@@ -27,5 +31,5 @@ exports.config =
       ]
 
   modules: {
-    wrapper: false
+    # wrapper: false
   }
