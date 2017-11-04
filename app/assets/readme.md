@@ -1,12 +1,11 @@
 # electron-boilerplate
 
-> My riveting app
+> A boilerplate for building phaser games with electron, typescript, bruch and sass
 
-
-## Dev
-
+## Installation
 ```
 $ npm install
+$ npm install brunch -g
 ```
 
 ### Run
