@@ -11,7 +11,7 @@ $ npm install brunch -g
 ### Run
 
 ```
-$ npm start
+$ npm run watch
 ```
 
 ### Build
